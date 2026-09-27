@@ -46,11 +46,10 @@ variable "database_subnets" {
             cidr = "10.0.11.0/24"
             az = "ap-south-2a"
         }
-        # DB_subnet-2 = {
-        #     cidr = "10.0.12.0/24"
-        #     az = "ap-south-2b"
-        # }
-
+        database-2 = {
+            cidr = "10.0.12.0/24"
+            az = "ap-south-2b"
+        }
     }
 }
 

@@ -9,8 +9,7 @@ resource "aws_vpc" "prod_vpc" {
     }
 }
 
-resource "aws_subnet" "database_subnet" {
-    # count = length(var.public_subnets)
+resource "aws_subnet" "database_subnets" {
     for_each = var.database_subnets
     cidr_block = each.value.cidr
     vpc_id = aws_vpc.prod_vpc.id
@@ -20,6 +19,7 @@ resource "aws_subnet" "database_subnet" {
     tags = {
         Name = "${aws_vpc.prod_vpc.tags.Name}-${each.key}"
         Vpc = aws_vpc.prod_vpc.tags.Name
+        source =  "console"
     }
 }
 
@@ -59,9 +59,9 @@ resource "aws_route_table" "database-route-table" {
 # }
 
 resource "aws_route_table_association" "database-association" {
-    for_each = var.database_route_tables
-    subnet_id = aws_subnet.database_subnet[each.key].id
-    route_table_id = aws_route_table.database-route-table[each.key].id
+    for_each = var.database_subnets
+    subnet_id = aws_subnet.database_subnets[each.key].id
+    route_table_id = aws_route_table.database-route-table["database"].id
   
 }
 
