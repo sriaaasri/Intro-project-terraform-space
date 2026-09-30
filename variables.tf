@@ -4,6 +4,25 @@ variable "vpc_cidr" {
   
 }
 
+variable "internet_cidr" {
+    default = "0.0.0.0/0"
+  
+}
+
+# variable "baston_ec2" {
+
+#     type = object({
+#       name = string
+#       AMI = string
+#       instance_type = string
+
+#     })
+
+#     # Intro_baston_server
+
+  
+# }
+
 variable "public_subnets" {
 
     #Public subnets cidr blocks are defined  10.0.1.0/24 -> 10.0.5.0/24
@@ -12,15 +31,22 @@ variable "public_subnets" {
       az = string
     }))
     default = {
-        subnet-1 = {
+        baston = {
             cidr = "10.0.1.0/24"
             az = "ap-south-2a"
         }
-        subnet-2 = {
-            cidr = "10.0.2.0/24"
-            az = "ap-south-2b"
-        }
+    }
+}
 
+variable "public_routetable" {
+    type = map(object({
+        name = string
+    }))
+
+    default = {
+      "public_RT" = {
+        name = "public_RT"
+      }
     }
   
 }
