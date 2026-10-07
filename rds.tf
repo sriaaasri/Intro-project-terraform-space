@@ -55,6 +55,10 @@ resource "aws_security_group" "rds_sg" {
 
 }
 
+locals {
+  flask_secrets = jsondecode(data.aws_secretsmanager_secret_version.flask.secret_string)
+}
+
 resource "aws_db_instance" "intro_db" {
   allocated_storage = 20
   storage_type      = "gp3"
@@ -62,8 +66,8 @@ resource "aws_db_instance" "intro_db" {
   engine_version    = "8.4.9"
   instance_class    = "db.t3.micro"
   identifier        = "flask"
-  username          = "admin"
-  password          = "Deadman$2001"
+  username          = local.flask_secrets.username
+  password          = local.flask_secrets.password
 
   vpc_security_group_ids = [aws_security_group.rds_sg.id, aws_security_group.rds_ec2.id]
   db_subnet_group_name   = aws_db_subnet_group.intro_db_subnet_group.name

@@ -7,6 +7,12 @@ resource "aws_security_group" "baston_SG" {
     protocol    = "tcp"
     cidr_blocks = [var.internet_cidr]
   }
+  ingress {
+    from_port   = 5000
+    to_port     = 5000
+    protocol    = "tcp"
+    cidr_blocks = [var.internet_cidr]
+  }
 
   egress {
     from_port   = 0
