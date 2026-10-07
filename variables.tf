@@ -104,4 +104,8 @@ variable "availability_zones" {
 
 }
 
+variable "secret_name" {
+  default = "flask-RDS-credentials"
+}
+
 
