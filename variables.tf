@@ -1,12 +1,12 @@
 variable "vpc_cidr" {
 
-    default = "10.0.0.0/16"
-  
+  default = "10.0.0.0/16"
+
 }
 
 variable "internet_cidr" {
-    default = "0.0.0.0/0"
-  
+  default = "0.0.0.0/0"
+
 }
 
 # variable "baston_ec2" {
@@ -19,87 +19,89 @@ variable "internet_cidr" {
 #     })
 
 #     # Intro_baston_server
-
-  
 # }
 
 variable "public_subnets" {
 
-    #Public subnets cidr blocks are defined  10.0.1.0/24 -> 10.0.5.0/24
-    type = map(object({
-      cidr = string
-      az = string
-    }))
-    default = {
-        baston = {
-            cidr = "10.0.1.0/24"
-            az = "ap-south-2a"
-        }
+  #Public subnets cidr blocks are defined  10.0.1.0/24 -> 10.0.5.0/24
+  type = map(object({
+    cidr = string
+    az   = string
+  }))
+  default = {
+    baston = {
+      cidr = "10.0.1.0/24"
+      az   = "ap-south-2a"
     }
+    public_subnet_2 = {
+      cidr = "10.0.2.0/24"
+      az   = "ap-south-2b"
+    }
+  }
 }
 
 variable "public_routetable" {
-    type = map(object({
-        name = string
-    }))
+  type = map(object({
+    name = string
+  }))
 
-    default = {
-      "public_RT" = {
-        name = "public_RT"
-      }
+  default = {
+    "public_RT" = {
+      name = "public_RT"
     }
-  
+  }
+
 }
 
 variable "private_subnets" {
 
-    #Private subnets cidr blocks are defined  10.0.6.0/24 -> 10.0.10.0/24
-    # type = list(string)
-    default = [ "10.0.6.0/24" ]
-  
+  #Private subnets cidr blocks are defined  10.0.6.0/24 -> 10.0.10.0/24
+  # type = list(string)
+  default = ["10.0.6.0/24"]
+
 }
 
 variable "database_subnets" {
 
-    #Private subnets cidr blocks are defined  10.0.11.0/24 -> 10.0.15.0/24
-    # type = list(string)
-    type = map(object({
-      cidr = string
-      az = string
-    }))
-    default = {
-        database = {
-            cidr = "10.0.11.0/24"
-            az = "ap-south-2a"
-        }
-        database-2 = {
-            cidr = "10.0.12.0/24"
-            az = "ap-south-2b"
-        }
+  #Private subnets cidr blocks are defined  10.0.11.0/24 -> 10.0.15.0/24
+  # type = list(string)
+  type = map(object({
+    cidr = string
+    az   = string
+  }))
+  default = {
+    database = {
+      cidr = "10.0.11.0/24"
+      az   = "ap-south-2a"
     }
+    database-2 = {
+      cidr = "10.0.12.0/24"
+      az   = "ap-south-2b"
+    }
+  }
 }
 
 variable "database_route_tables" {
-    type = map(object({
-        name = string
-    }))
-    default = {
+  type = map(object({
+    name = string
+  }))
+  default = {
 
-        database = {
-            name = "Database-routetable"
-        }
+    database = {
+      name = "Database-routetable"
     }
-  
+  }
+
 }
 
 variable "availability_zones" {
-    type = map(string)
-    default = {
-      "zone-a" = "ap-south-2a",
-      "zone-b" = "ap-south-2b",
-      "zone-c" = "ap-south-2c"
-    }
-  
+  type = map(string)
+  default = {
+    "zone-a" = "ap-south-2a",
+    "zone-b" = "ap-south-2b",
+    "zone-c" = "ap-south-2c"
+  }
+
 }
 
 
