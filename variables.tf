@@ -1,26 +1,10 @@
 variable "vpc_cidr" {
-
   default = "10.0.0.0/16"
-
 }
-
 variable "internet_cidr" {
   default = "0.0.0.0/0"
 
 }
-
-# variable "baston_ec2" {
-
-#     type = object({
-#       name = string
-#       AMI = string
-#       instance_type = string
-
-#     })
-
-#     # Intro_baston_server
-# }
-
 variable "public_subnets" {
 
   #Public subnets cidr blocks are defined  10.0.1.0/24 -> 10.0.5.0/24
@@ -54,11 +38,9 @@ variable "public_routetable" {
 }
 
 variable "private_subnets" {
-
   #Private subnets cidr blocks are defined  10.0.6.0/24 -> 10.0.10.0/24
   # type = list(string)
   default = ["10.0.6.0/24"]
-
 }
 
 variable "database_subnets" {
@@ -106,6 +88,16 @@ variable "availability_zones" {
 
 variable "secret_name" {
   default = "flask-RDS-credentials"
+}
+
+variable "ami" {
+  type    = string
+  default = "ami-0199ac7c9fbf9ed83"
+  validation {
+    condition     = length(var.ami) > 4 && substr(var.ami, 0, 4) == "ami-"
+    error_message = "ami value is not valid. please check"
+  }
+
 }
 
 
