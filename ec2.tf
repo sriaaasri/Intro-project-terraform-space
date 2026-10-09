@@ -38,6 +38,8 @@ resource "aws_instance" "prod_baston" {
   subnet_id              = aws_subnet.public_subnets["public_subnet_2"].id
   key_name               = data.aws_key_pair.Jenkins_keyPair_updated.key_name
   user_data              = file("baston_userData.sh")
+  #ec2 role 
+  iam_instance_profile = aws_iam_role.prod_baston_server_IAM_Role.name
 
   root_block_device {
     volume_size = 8
